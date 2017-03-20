@@ -73,11 +73,11 @@ public class Option1 {
 			System.out.println("Update room table, room number " +avail_room+ "!" );
 			
 			//insert reservation table
-			//get new reservation_number  based on current number of reservation
-			ResultSet reserv_num_result = stmt.executeQuery("SELECT COUNT(*) FROM reservation;");
+			//get new reservation_number based on largest reservation number
+			ResultSet reserv_num_result = stmt.executeQuery("SELECT reservation_number FROM reservation WHERE reservation_number >= ALL (SELECT reservation_number FROM reservation );");
 			String new_reserv_num = "";
 			if(reserv_num_result.next()){
-				new_reserv_num = convert_reserv_num_op1(reserv_num_result.getInt("count") + 1);
+				new_reserv_num = convert_reserv_num_op1(Integer.valueOf(reserv_num_result.getString("reservation_number")) + 1);
 			}
 			String start_date_str = start_date.toString().replaceAll("-", "");
 			String end_date_str = end_date.toString().replaceAll("-", "");
@@ -108,20 +108,20 @@ public class Option1 {
 			}
 			System.out.println("Update calendar for room "+avail_room+"!");
 			
-			//insert bills and room bills
-			//generate new bill id based on count of bills
-			ResultSet bill_num_result = stmt.executeQuery("SELECT COUNT(*) FROM bill;");
-			String new_bill_id = "";
-			if(bill_num_result.next()){
-				new_bill_id = convert_guest_id_op1(bill_num_result.getInt("count") + 1);
-			}
-			bill_num_result.close();
-			String bill_insert_query = "INSERT INTO bill VALUES ('"+new_bill_id+"', 0, date'"+start_date_str+"'+time '00:00', '"+new_reserv_num+"'); ";
-			stmt.executeUpdate(bill_insert_query);
-			String room_bill_insert_query = "INSERT INTO room_bill VALUES ('"+new_bill_id+"', "+avail_room+"); ";
-			stmt.executeUpdate(room_bill_insert_query);
-			System.out.println("Insert new bill and room bill with bill id "+new_bill_id+"!");
-			
+//			//insert bills and room bills
+//			//generate new bill id based on count of bills
+//			ResultSet bill_num_result = stmt.executeQuery("SELECT COUNT(*) FROM bill;");
+//			String new_bill_id = "";
+//			if(bill_num_result.next()){
+//				new_bill_id = convert_guest_id_op1(bill_num_result.getInt("count") + 1);
+//			}
+//			bill_num_result.close();
+//			String bill_insert_query = "INSERT INTO bill VALUES ('"+new_bill_id+"', 0, date'"+start_date_str+"'+time '00:00', '"+new_reserv_num+"'); ";
+//			stmt.executeUpdate(bill_insert_query);
+//			String room_bill_insert_query = "INSERT INTO room_bill VALUES ('"+new_bill_id+"', "+avail_room+"); ";
+//			stmt.executeUpdate(room_bill_insert_query);
+//			System.out.println("Insert new bill and room bill with bill id "+new_bill_id+"!");
+//			
 			result.close();
 			stmt.close();
 			conn.close();
@@ -148,6 +148,8 @@ public class Option1 {
 			}
 			return str;
 		}
+		
+		
 		
 		//helper method to convert format of reservation number 
 		public  String convert_reserv_num_op1(int reserv_num){
