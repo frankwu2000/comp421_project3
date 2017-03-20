@@ -10,30 +10,42 @@ import java.sql.Statement;
 public class tester {
 
 	public static void main(String[] args) throws SQLException{
-		String first_name = "OPTION1_CHECK2";
-		String last_name = "option1_check333";
+		
+//------------------------test frank code------------------------------------
+		String first_name = "Chelsea";
+		String last_name = "Mia";
 		String phone = "111-111-1111";
 		String email = "frankwu2000@hotmail.com";
 		boolean membership = true;
-		String personal_id = "G22345432445"; //unique
-		String start_date_str = "2017-02-08";
-		String end_date_str = "2017-02-11";
+		String personal_id = "G22345432115"; //unique
+		String start_date_str = "2017-02-07";
+		String end_date_str = "2017-02-10";
 		String room_type = "Double";
 		boolean online_reserved = true;
 		String payment_type = "Debit";
 		
-//		Option1 op1 = new Option1();
-//		op1.run(first_name,last_name,phone,email,membership,
+		
+		
+		
+//		Option1.run(first_name,last_name,phone,email,membership,
 //		personal_id,start_date_str,end_date_str,room_type,
 //		online_reserved,payment_type);
 		
-		
-//		Option7 op7 = new Option7();
-//		System.out.println(op7.run(first_name, last_name));
-		
-		
 
+//		Option7 op7 = new Option7();
+//		System.out.println(Option7.run(first_name, last_name));
 		
+//------------------------test Mia code------------------------------------
+		
+//		//Class.forName("com.ibm.db2.jcc.")
+//		//Date today = Date.valueOf("2017-02-07");
+//		//System.out.println(checkIn("W2138-7750741-38", today));
+//		//cancelReservation("00000002");
+//		Date originalDep = Date.valueOf("2017-02-06");
+//		System.out.println(extendDate(111, originalDep, 2));
+		
+//------------------------test Chelsea code------------------------------------ 
+	
 		
 		//generate parking lot		
 //		Connection conn = op1.connect();
@@ -56,8 +68,6 @@ public class tester {
 //		}
 //		stmt.close();
 //		conn.close();
-		
-		
 		
 	}
 

@@ -12,7 +12,7 @@ public class Option7 {
 	public Option7(){}
 	
 	//establish connection
-	public Connection connect() throws SQLException{
+	public static Connection connect() throws SQLException{
 		DriverManager.registerDriver(new org.postgresql.Driver());
 		Connection conn = DriverManager.getConnection(
 			"jdbc:postgresql://comp421.cs.mcgill.ca:5432/cs421",
@@ -21,7 +21,7 @@ public class Option7 {
 		return conn;
 	}
 	
-	public String run(String first_name,String last_name) throws SQLException{
+	public static String run(String first_name,String last_name) throws SQLException{
 		String return_int = "";
 		Connection conn = connect();
 		Statement stmt = conn.createStatement();

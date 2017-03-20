@@ -16,7 +16,7 @@ public class Option1 {
 		Option1(){}
 
 		//establish connection
-		public  Connection connect() throws SQLException{
+		public  static Connection connect() throws SQLException{
 			DriverManager.registerDriver(new org.postgresql.Driver());
 			Connection conn = DriverManager.getConnection(
 					"jdbc:postgresql://comp421.cs.mcgill.ca:5432/cs421",
@@ -27,7 +27,7 @@ public class Option1 {
 		
 		
 		//option1 - add new guest
-		public void run(String first_name,String last_name,String phone, String email, boolean membership,String personal_id,String start_date_input_str, String end_date_input_str, String room_type, boolean online_reserved, String payment_type )throws SQLException{
+		public static void run(String first_name,String last_name,String phone, String email, boolean membership,String personal_id,String start_date_input_str, String end_date_input_str, String room_type, boolean online_reserved, String payment_type )throws SQLException{
 			//check if the person was guest or not
 			Connection conn = connect();
 			Statement stmt = conn.createStatement();
@@ -109,28 +109,14 @@ public class Option1 {
 				staydate = staydate.plusDays(1);
 			}
 			System.out.println("Update calendar for room "+avail_room+"!");
-			
-//			//insert bills and room bills
-//			//generate new bill id based on count of bills
-//			ResultSet bill_num_result = stmt.executeQuery("SELECT COUNT(*) FROM bill;");
-//			String new_bill_id = "";
-//			if(bill_num_result.next()){
-//				new_bill_id = convert_guest_id_op1(bill_num_result.getInt("count") + 1);
-//			}
-//			bill_num_result.close();
-//			String bill_insert_query = "INSERT INTO bill VALUES ('"+new_bill_id+"', 0, date'"+start_date_str+"'+time '00:00', '"+new_reserv_num+"'); ";
-//			stmt.executeUpdate(bill_insert_query);
-//			String room_bill_insert_query = "INSERT INTO room_bill VALUES ('"+new_bill_id+"', "+avail_room+"); ";
-//			stmt.executeUpdate(room_bill_insert_query);
-//			System.out.println("Insert new bill and room bill with bill id "+new_bill_id+"!");
-//			
+		
 			result.close();
 			stmt.close();
 			conn.close();
 		}
 		
 		//helper method to convert format of guest_id
-		public  String convert_guest_id_op1(int guest_id){
+		public static String convert_guest_id_op1(int guest_id){
 			String str = "";
 			String id = String.valueOf(guest_id);
 			if(guest_id < 10 ){
@@ -154,7 +140,7 @@ public class Option1 {
 		
 		
 		//helper method to convert format of reservation number 
-		public  String convert_reserv_num_op1(int reserv_num){
+		public static String convert_reserv_num_op1(int reserv_num){
 			String str = "";
 			String id = String.valueOf(reserv_num);
 			if(reserv_num < 10 ){
@@ -178,7 +164,7 @@ public class Option1 {
 		}
 		
 		//check room calendar to find empty room with certain type within certain date interval
-		public  String check_calendar_op1(Date start_date , Date end_date , String room_type, String old_room_number) throws SQLException{
+		public static String check_calendar_op1(Date start_date , Date end_date , String room_type, String old_room_number) throws SQLException{
 			//build connect and execute query
 			Connection conn = connect();
 			Statement stmt = conn.createStatement();
@@ -222,7 +208,7 @@ public class Option1 {
 		
 		
 		//helper method for check_calendar
-		public  String find_intersection_op1(ArrayList<Vector<String>> overall_date, String old_room_number){
+		public static String find_intersection_op1(ArrayList<Vector<String>> overall_date, String old_room_number){
 			
 			for(int i = 0 ; i<overall_date.get(0).size();i++){
 					int days = 0;
