@@ -1,35 +1,43 @@
 package comp421_project3;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+//author : Frank Wu
+
+
 public class tester {
 
 	public static void main(String[] args) throws SQLException{
 		String first_name = "OPTION1_CHECK2";
-		String last_name = "option1_check";
+		String last_name = "option1_check333";
 		String phone = "111-111-1111";
 		String email = "frankwu2000@hotmail.com";
 		boolean membership = true;
-		String personal_id = "G22345432555"; //unique
+		String personal_id = "G22345432445"; //unique
 		String start_date_str = "2017-02-08";
 		String end_date_str = "2017-02-11";
 		String room_type = "Double";
 		boolean online_reserved = true;
 		String payment_type = "Debit";
 		
-		Option1 op1 = new Option1();
+//		Option1 op1 = new Option1();
+//		op1.run(first_name,last_name,phone,email,membership,
+//		personal_id,start_date_str,end_date_str,room_type,
+//		online_reserved,payment_type);
 		
-		op1.run(first_name,last_name,phone,email,membership,
-					personal_id,start_date_str,end_date_str,room_type,
-					online_reserved,payment_type);
 		
-		Connection conn = op1.connect();
-		Statement stmt = conn.createStatement();
+//		Option7 op7 = new Option7();
+//		System.out.println(op7.run(first_name, last_name));
 		
-		//generate parking lot
+		
+
+		
+		
+		//generate parking lot		
+//		Connection conn = op1.connect();
+//		Statement stmt = conn.createStatement();
 //		for(int i =1 ; i<=30 ; i++){
 //			String insert_query = "INSERT INTO parking_lot VALUES ("+i+",'disable');";
 //			//System.out.println(insert_query);
@@ -46,9 +54,8 @@ public class tester {
 //			String delete_query = "DELETE FROM parking_lot WHERE parking_number = "+i+";";
 //			stmt.executeUpdate(delete_query);
 //		}
-
-		stmt.close();
-		conn.close();
+//		stmt.close();
+//		conn.close();
 		
 		
 		
