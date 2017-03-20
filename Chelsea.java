@@ -182,23 +182,16 @@ public class Chelsea {
 			}
 		return "no available room";
 	}
-		
-		public static String find_intersection(ArrayList<Vector<String>> overall_date){
-			for(int i = 0 ; i<overall_date.get(0).size();i++){
-					int days = 0;
-					String room = new String(overall_date.get(0).get(i));
-					for(int j = 0 ; j < overall_date.size();j++){
-						if(overall_date.get(j).contains(room))
-							days++;
-					}
-					if(days == overall_date.size())
-						return room;	
-				}
-			return "no available room";
-		}
+	
 
 	//roomNo, start, end
 	public static String changeRoom(int roomNo, Date start, Date end) throws SQLException{
+		
+		//Frank Edit: add one day to end since my find room exclude end day
+		LocalDate temp_end = end.toLocalDate();
+		temp_end = temp_end.plusDays(1);
+		end = Date.valueOf(temp_end);
+		
 		Connection conn = connect();
 		Statement stmt = conn.createStatement();
 		

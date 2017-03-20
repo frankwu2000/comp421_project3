@@ -64,6 +64,10 @@ public class Option1 {
 			//update room table
 			Date start_date = Date.valueOf(start_date_input_str);
 			Date end_date = Date.valueOf(end_date_input_str);
+			LocalDate temp_end = end_date.toLocalDate();
+			temp_end = temp_end.plusDays(1);
+			end_date = Date.valueOf(temp_end);
+					
 			String avail_room = check_calendar_op1(start_date,end_date,room_type,"");
 			//if no available room, terminate
 			if(avail_room.equals("no available room")){
