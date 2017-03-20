@@ -27,7 +27,7 @@ public class Option1 {
 		
 		
 		//option1 - add new guest
-		public void run(String first_name,String last_name,String phone, String email, boolean membership,String personal_id,Date start_date, Date end_date, String room_type, boolean online_reserved, String payment_type )throws SQLException{
+		public void run(String first_name,String last_name,String phone, String email, boolean membership,String personal_id,String start_date_input_str, String end_date_input_str, String room_type, boolean online_reserved, String payment_type )throws SQLException{
 			//check if the person was guest or not
 			Connection conn = connect();
 			Statement stmt = conn.createStatement();
@@ -62,6 +62,8 @@ public class Option1 {
 			}
 			
 			//update room table
+			Date start_date = Date.valueOf(start_date_input_str);
+			Date end_date = Date.valueOf(end_date_input_str);
 			String avail_room = check_calendar_op1(start_date,end_date,room_type,"");
 			//if no available room, terminate
 			if(avail_room.equals("no available room")){
