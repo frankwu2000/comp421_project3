@@ -12,26 +12,26 @@ public class tester {
 	public static void main(String[] args) throws SQLException{
 		
 //------------------------test frank code------------------------------------------------------
-		String first_name = "Chelsea";
-		String last_name = "Mia";
+		String first_name = "OPTION1_CHECK2";
+		String last_name = "option1_check333";
 		String phone = "111-111-1111";
 		String email = "frankwu2000@hotmail.com";
 		boolean membership = true;
-		String personal_id = "G44444444"; //unique
-		String start_date_str = "2017-02-03";
-		String end_date_str = "2017-02-05";
+		String personal_id = "G55555533"; //unique
+		String start_date_str = "2017-03-03";
+		String end_date_str = "2017-03-05";
 		String room_type = "Twin";
 		boolean online_reserved = true;
 		String payment_type = "Debit";
 		
 		
-		Option1.run(first_name,last_name,phone,email,membership,
-		personal_id,start_date_str,end_date_str,room_type,
-		online_reserved,payment_type);
+//		System.out.println(Option1.run(first_name,last_name,phone,email,membership,
+//				personal_id,start_date_str,end_date_str,room_type,
+//				online_reserved,payment_type));
 		
 
-//		Option7 op7 = new Option7();
-//		System.out.println(Option7.run(first_name, last_name));
+		Option7 op7 = new Option7();
+		System.out.println(Option7.run(first_name, last_name));
 		
 //------------------------test Mia code-------------------------------------------------------
 		

@@ -21,6 +21,11 @@ public class Option7 {
 		return conn;
 	}
 	
+	/*if there are multiple guests with same name, return string will be like :
+		110
+		101
+		120
+	*/
 	public static String run(String first_name,String last_name) throws SQLException{
 		String return_int = "";
 		Connection conn = connect();
@@ -28,10 +33,16 @@ public class Option7 {
 		
 		String find_name_query = "SELECT room_number FROM guestroom WHERE guest_id in (SELECT guest_id FROM guest WHERE first_name = '"+first_name+"' AND last_name = '"+last_name+"' );";
 		ResultSet result = stmt.executeQuery(find_name_query);
+		
 		while(result.next()){
 			return_int += String.valueOf(result.getInt("room_number"));
 			return_int += "\n";
 		}
+//		if(return_int.compareTo("")==0){
+//			stmt.close();
+//			conn.close();
+//			return "Fail to find room!";
+//		}
 		
 		stmt.close();
 		conn.close();

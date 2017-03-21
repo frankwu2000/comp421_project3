@@ -1,5 +1,4 @@
 package comp421_project3;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -26,8 +25,11 @@ public class Option1 {
 		}
 		
 		
-		//option1 - add new guest
-		public static void run(String first_name,String last_name,String phone, String email, boolean membership,String personal_id,String start_date_input_str, String end_date_input_str, String room_type, boolean online_reserved, String payment_type )throws SQLException{
+		//option1 - add new guest, if guest exists skip
+		//		  - add new reservation, if no room available , return error message
+		//        - update calendar, return success message
+		
+		public static String run(String first_name,String last_name,String phone, String email, boolean membership,String personal_id,String start_date_input_str, String end_date_input_str, String room_type, boolean online_reserved, String payment_type )throws SQLException{
 			//check if the person was guest or not
 			Connection conn = connect();
 			Statement stmt = conn.createStatement();
@@ -53,15 +55,15 @@ public class Option1 {
 						"','" + last_name + "','" + phone + "','" + email + "','" + member_ship + 
 						"','"+ personal_id + "');";
 				stmt.executeUpdate(insert_guest);
-				System.out.println("Insert new guest with guest_id " +new_guest_id+ "!" );
+				//System.out.println("Insert new guest with guest_id " +new_guest_id+ "!" );
 				guestid_result.close();
 				
 			}else{
-				//this person is already a guest!
-				System.out.println("this person is a guest already!");
+				//this person is already a guest! do nothing
+				//System.out.println("this person is a guest already!");
 			}
 			
-			//update room table
+			//find available room
 			Date start_date = Date.valueOf(start_date_input_str);
 			Date end_date = Date.valueOf(end_date_input_str);
 			LocalDate temp_end = end_date.toLocalDate();
@@ -71,12 +73,14 @@ public class Option1 {
 			String avail_room = check_calendar_op1(start_date,end_date,room_type,"");
 			//if no available room, terminate
 			if(avail_room.equals("no available room")){
-				System.out.println("no available room!");
-				return;
+				//System.out.println("no available room!");
+				//delete added guest from guest table
+				String delete_query = "DELETE FROM guest WHERE personal_id = '"+personal_id+"';";
+				stmt.executeUpdate(delete_query);
+				stmt.close();
+				conn.close();
+				return "Fail to add reservation! No avail room on demand!";
 			}
-			String room_update_query = "UPDATE guestroom SET guest_id = '"+new_guest_id+"' WHERE room_number = "+avail_room+";";
-			stmt.executeUpdate(room_update_query);
-			System.out.println("Update room table, room number " +avail_room+ "!" );
 			
 			//insert reservation table
 			//get new reservation_number based on largest reservation number
@@ -96,10 +100,12 @@ public class Option1 {
 			"', "+avail_room+", "+online_reserv_str+", '"+payment_type+"');";
 //			System.out.println(reserv_update_query);
 			stmt.executeUpdate(reserv_update_query);
-			System.out.println("Insert new reservation with reservation number "+new_reserv_num+"!");
+			//System.out.println("Insert new reservation with reservation number "+new_reserv_num+"!");
 			reserv_num_result.close();
 			
-			//update calendar
+			//update calendar and execute sql query
+			
+			
 			LocalDate start = start_date.toLocalDate();
 			LocalDate end = end_date.toLocalDate();
 			LocalDate staydate = start;
@@ -112,11 +118,14 @@ public class Option1 {
 				
 				staydate = staydate.plusDays(1);
 			}
-			System.out.println("Update calendar for room "+avail_room+"!");
-		
+			//System.out.println("Update calendar for room "+avail_room+"!");
+			
 			result.close();
 			stmt.close();
 			conn.close();
+			
+			return "Successfully add reservation for guest "+first_name+" "+last_name+"!";
+			
 		}
 		
 		//helper method to convert format of guest_id
